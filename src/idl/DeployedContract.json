@@ -1,0 +1,261 @@
+{
+  "version": "0.1.0",
+  "name": "smartcontract",
+  "instructions": [
+    {
+      "name": "createSurvey",
+      "accounts": [
+        {
+          "name": "survey",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "id",
+          "type": "u64"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "openTimestamp",
+          "type": "u64"
+        },
+        {
+          "name": "closeTimestamp",
+          "type": "u64"
+        },
+        {
+          "name": "targetParticipant",
+          "type": "u64"
+        },
+        {
+          "name": "totalReward",
+          "type": "u64"
+        },
+        {
+          "name": "questionList",
+          "type": {
+            "vec": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fillSurvey",
+      "accounts": [
+        {
+          "name": "answer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "survey",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "surveyId",
+          "type": "u64"
+        },
+        {
+          "name": "answerList",
+          "type": {
+            "vec": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Answer",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "publicKey"
+          },
+          {
+            "name": "surveyId",
+            "type": "u64"
+          },
+          {
+            "name": "answerList",
+            "type": {
+              "vec": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Survey",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "creator",
+            "type": "publicKey"
+          },
+          {
+            "name": "openTimestamp",
+            "type": "u64"
+          },
+          {
+            "name": "closeTimestamp",
+            "type": "u64"
+          },
+          {
+            "name": "currentParticipant",
+            "type": "u64"
+          },
+          {
+            "name": "targetParticipant",
+            "type": "u64"
+          },
+          {
+            "name": "totalReward",
+            "type": "u64"
+          },
+          {
+            "name": "rewardPerParticipant",
+            "type": "u64"
+          },
+          {
+            "name": "state",
+            "type": {
+              "defined": "SurvzState"
+            }
+          },
+          {
+            "name": "questionList",
+            "type": {
+              "vec": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "SurvzState",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Open"
+          },
+          {
+            "name": "Closed"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "SurveyCreated",
+      "fields": [
+        {
+          "name": "creator",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "surveyAccount",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "SurveyFilled",
+      "fields": [
+        {
+          "name": "user",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "surveyAccount",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "SurveyIsClosed",
+      "msg": "Survey is closed."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidSurveyInput",
+      "msg": "Invalid survey input."
+    },
+    {
+      "code": 6002,
+      "name": "AllFieldMustBeAnswered",
+      "msg": "All fields must be answered."
+    },
+    {
+      "code": 6003,
+      "name": "InvalidTime",
+      "msg": "Invalid open or close time."
+    },
+    {
+      "code": 6004,
+      "name": "InsufficientFunds",
+      "msg": "Insufficient funds."
+    }
+  ],
+  "metadata": {
+    "address": "E4ToFZT9sWoMewsLiVKweYt2QRHwUFBZ2dJcw92br2Dx"
+  }
+}
