@@ -1,5 +1,5 @@
 import { AnchorProvider } from "@coral-xyz/anchor";
-import { commitmentLevel, connection, wallet } from "./constants";
+import { commitmentLevel, connection } from "./constants";
 
 export async function truncateAccount() {
     
