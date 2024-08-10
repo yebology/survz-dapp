@@ -30,7 +30,7 @@ export const Navbar = () => {
       }`}
     >
       <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
-        <h1 className="block w-[8rem] text-lg">Survz</h1>
+        <h1 className="block w-[8rem] font-bold text-xl">Survz</h1>
 
         <nav
           className={`${
@@ -53,7 +53,7 @@ export const Navbar = () => {
           <HamburgerMenu />
         </nav>
 
-        <button className="hidden lg:flex navbar-button-gradient cursor-pointer hover:scale-105 duration-200">Connect Wallet</button>
+        <button className="hidden text-sm lg:flex navbar-button-gradient cursor-pointer hover:scale-105 duration-200">Connect Wallet</button>
 
         <button
           onClick={toggleNavigation}
