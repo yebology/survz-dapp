@@ -6,6 +6,7 @@ import { endpoint } from './utils/constants'
 import { Route, Routes } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { Navbar } from './components/fixed/Navbar'
+import { Footer } from './components/fixed/Footer'
 
 function App() {
   const phantomWallet = new PhantomWalletAdapter();
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
           </Routes>
+          <Footer />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>  

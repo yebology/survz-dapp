@@ -53,7 +53,7 @@ export const Navbar = () => {
           <HamburgerMenu />
         </nav>
 
-        <button className="hidden text-sm lg:flex navbar-button-gradient cursor-pointer hover:scale-105 duration-200">Connect Wallet</button>
+        <button className="hidden text-sm lg:flex navbar-button cursor-pointer hover:scale-105 duration-200">Connect Wallet</button>
 
         <button
           onClick={toggleNavigation}
