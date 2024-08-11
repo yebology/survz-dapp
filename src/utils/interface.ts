@@ -25,5 +25,17 @@ export type Survey = {
 }
 
 export type SurveyCardProps = {
-    survey: Survey
+    survey: Survey,
+    type: string
+}
+
+export type SurveySectionProps = {
+    data: Survey[],
+    type: string
+}
+
+export type SearchBarProps = {
+    query: string,
+    handleSearch: React.ChangeEventHandler<HTMLInputElement>,
+    message: string
 }

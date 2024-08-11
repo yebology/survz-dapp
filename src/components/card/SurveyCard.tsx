@@ -4,7 +4,7 @@ import { SiSolana } from "react-icons/si";
 import { FaUserGroup } from "react-icons/fa6";
 import { timestampToDateConverter } from "../../utils/helper";
 
-export const SurveyCard: React.FC<SurveyCardProps> = ({ survey }) => {
+export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
   const currentTimestamp = Math.floor(new Date().getTime() / 1000);
   const condition =
     survey.state == 0 && currentTimestamp >= survey.openTimestamp;
@@ -46,7 +46,9 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey }) => {
           >
             <div className="flex items-center flex-row">
               <FaUserGroup className="mr-1" />
-              <h5>{survey.currentParticipant}/{survey.targetParticipant}</h5>
+              <h5>
+                {survey.currentParticipant}/{survey.targetParticipant}
+              </h5>
             </div>
           </div>
         </div>
@@ -55,18 +57,27 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey }) => {
       <div>
         <div className="p-4">
           <h5 className="font-semibold line-clamp-1 mb-2">{survey.title}</h5>
-          <div className="flex flex-row text-xs">
-            <h5 className="font-semibold"> Start : </h5>
-            <h5 className="font-normal ml-1">
-              {timestampToDateConverter(survey.openTimestamp)}
-            </h5>
-          </div>
-          <div className="mt-1 flex flex-row text-xs">
-            <h5 className="font-semibold"> End : </h5>
-            <h5 className="font-normal ml-1">
-              {timestampToDateConverter(survey.closeTimestamp)}
-            </h5>
-          </div>
+          {type == "My Responses" ? (
+            <div className="flex flex-row text-xs">
+              <h5 className="font-semibold">Answered on </h5>
+              <h5 className="font-normal ml-1">{timestampToDateConverter(survey.openTimestamp)}</h5>
+            </div>
+          ) : (
+            <div>
+              <div className="flex flex-row text-xs">
+                <h5 className="font-semibold"> Start : </h5>
+                <h5 className="font-normal ml-1">
+                  {timestampToDateConverter(survey.openTimestamp)}
+                </h5>
+              </div>
+              <div className="mt-1 flex flex-row text-xs">
+                <h5 className="font-semibold"> End : </h5>
+                <h5 className="font-normal ml-1">
+                  {timestampToDateConverter(survey.closeTimestamp)}
+                </h5>
+              </div>
+            </div>
+          )}
           <p className="font-normal text-xs line-clamp-2 text-n-3 my-2">
             {survey.description}
           </p>
