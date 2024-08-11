@@ -5,20 +5,21 @@ import incentives from "../assets/incentives.png";
 
 export const navList : Navbar[] = [
   {
-    id: 0,
     title: "Home",
     url: "/",
   },
   {
-    id: 1,
     title: "Survey",
     url: "/survey",
   },
   {
-    id: 2,
-    title: "History",
-    url: "/history",
+    title: "Creation",
+    url: "/creation"
   },
+  {
+    title: "Responses",
+    url: "/responses"
+  }
 ];
 
 export const advantageList: Advantage[] = [

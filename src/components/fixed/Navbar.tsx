@@ -38,9 +38,9 @@ export const Navbar = () => {
           } fixed top-[5rem] left-0 right-0 bottom-0 bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}
         >
           <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
-            {navList.map((item) => (
+            {navList.map((item, index) => (
               <a
-                key={item.id}
+                key={index}
                 href={item.url}
                 onClick={handleClick}
                 className={`block relative font-code text-2xl uppercase text-n-1 transition-colors hover:text-color-1 px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-sm lg:font-semibold z-2 lg:text-n-1 lg:leading-5 lg:hover:text-n-1 xl:px-12`}
