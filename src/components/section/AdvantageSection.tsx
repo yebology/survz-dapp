@@ -1,8 +1,8 @@
-import { advantageList } from "../../utils/constants";
+import { advantageList } from "../../utils/list";
 
 export const AdvantageSection = () => {
   return (
-    <div className="my-10 pt-32 md:py-12 xl:container m-auto px-6 md:px-12">
+    <div className="my-36 xl:container m-auto px-6 md:px-12">
       <div>
         <h1 className="text-center font-bold text-4xl">Survz Advantages</h1>
         <div className="relative my-16 grid lg:grid-cols-3 gap-10 mx-auto w-full">

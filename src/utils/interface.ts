@@ -3,3 +3,28 @@ export type Advantage = {
     advantage: string,
     description: string
 }
+
+export type Navbar = {
+    id: number,
+    title: string,
+    url: string
+}
+
+export type Survey = {
+    id: number,
+    title: string,
+    image: string,
+    description: string,
+    creator: string,
+    openTimestamp: number,
+    closeTimestamp: number,
+    currentParticipant: number,
+    targetParticipant: number,
+    totalReward: number,
+    rewardPerParticipant: number,
+    state: number
+}
+
+export type SurveyCardProps = {
+    survey: Survey
+}

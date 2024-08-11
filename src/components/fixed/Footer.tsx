@@ -1,4 +1,4 @@
-import { navList } from "../../utils/constants";
+import { navList } from "../../utils/list";
 
 export const Footer = () => {
   return (

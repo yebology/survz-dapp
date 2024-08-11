@@ -76,3 +76,29 @@
   background-color: #0E0C15;
   z-index: -1;
 }
+
+.survey-card {
+  border: none;
+  outline: none;
+  position: relative;
+  z-index: 1;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+     #6a0572,
+     #8e44ad,
+     #a29bfe
+  );
+}
+
+.survey-card::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  border-radius: 19px;
+  background-color: #0E0C15;
+  z-index: -1;
+}

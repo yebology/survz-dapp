@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
-import { navList } from "../../utils/constants";
+import { navList } from "../../utils/list";
 import { HamburgerMenu } from "./HamburgerMenu";
 
 export const Navbar = () => {
