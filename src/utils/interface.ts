@@ -21,6 +21,7 @@ export type Survey = {
     targetParticipant: number,
     totalReward: number,
     rewardPerParticipant: number,
+    questionList: string[],
     state: number
 }
 
@@ -38,4 +39,8 @@ export type SearchBarProps = {
     query: string,
     handleSearch: React.ChangeEventHandler<HTMLInputElement>,
     message: string
+}
+
+export type SurveyDetailPageProps = {
+    data: Survey
 }

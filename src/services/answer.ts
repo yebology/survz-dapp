@@ -4,7 +4,7 @@ import { SystemProgram } from "@solana/web3.js";
 import { getProvider } from "../utils/helper";
 
 export async function fillSurvey(
-    surveyId: bigint,
+    surveyId: number,
     answerList: string[]
 ) {
     const provider = await getProvider();

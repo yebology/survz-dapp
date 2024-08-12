@@ -13,6 +13,7 @@ import { Footer } from "./components/fixed/Footer";
 import { SurveyPage } from "./pages/SurveyPage";
 import { CreationPage } from "./pages/CreationPage";
 import { ResponsesPage } from "./pages/ResponsesPage";
+import { SurveyDetailPage } from "./pages/SurveyDetailPage";
 
 function App() {
   const phantomWallet = new PhantomWalletAdapter();
@@ -29,6 +30,7 @@ function App() {
             <Route path="/survey" element={<SurveyPage />} />
             <Route path="/creation" element={<CreationPage />} />
             <Route path="/responses" element={<ResponsesPage />} />
+            <Route path="/survey/:id" element={<SurveyDetailPage />} />
           </Routes>
           <Footer />
         </WalletModalProvider>

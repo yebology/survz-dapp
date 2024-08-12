@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export const RecommendedSection = () => {
+  const type = "Recommendation";
   let sliderRef = useRef<Slider | null>(null);
   const playAnimation = () => {
     if (sliderRef.current) {
@@ -121,7 +122,7 @@ export const RecommendedSection = () => {
         <div className="slider-container">
           <Slider ref={sliderRef} {...settings}>
             {surveyList.map((survey) => (
-              <SurveyCard key={survey.id} survey={survey} />
+              <SurveyCard key={survey.id} survey={survey} type={type}/>
             ))}
           </Slider>
         </div>
