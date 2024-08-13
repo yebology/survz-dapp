@@ -4,6 +4,7 @@ import { SiSolana } from "react-icons/si";
 import { FaUserGroup } from "react-icons/fa6";
 import { timestampToDateConverter } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
+import user from "../../assets/user.png";
 
 export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
   const navigate = useNavigate();
@@ -18,8 +19,6 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
         return navigate(`/creation/` + survey.id);
       case "All Survey":
         return navigate(`/survey/` + survey.id);
-      case "My Responses":
-        return navigate(`/responses/` + survey.id);
       default:
         return;
     }
@@ -101,11 +100,18 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
               </div>
             </div>
           )}
-          <p className="font-normal text-xs line-clamp-2 text-n-3 my-2">
-            {survey.description}
-          </p>
+          {typeCondition && (
+            <p className="font-normal text-xs line-clamp-2 text-n-3 my-2">
+              {survey.description}
+            </p>
+          )}
+          <div className="flex items-center justify-start mt-3">
+            <img src={user} alt={survey.creator} className="size-6"/>
+            <p className="font-semibold text-sm">
+              {survey.creator}
+            </p>
+          </div>
         </div>
-        <div className="flex justify-between items-center flex-wrap bg-gray-100 text-gray-500 font-semibold"></div>
       </div>
     </div>
   );

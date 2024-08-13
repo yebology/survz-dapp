@@ -25,6 +25,14 @@ export type Survey = {
     state: number
 }
 
+export type Answer = {
+    id: number,
+    user: string,
+    surveyId: number,
+    timestamp: number,
+    answerList: string[]
+}
+
 export type SurveyCardProps = {
     survey: Survey,
     type: string
@@ -41,6 +49,25 @@ export type SearchBarProps = {
     message: string
 }
 
-export type SurveyDetailPageProps = {
+export type SurveyHeroSectionProps = {
+    data: Survey,
+    type: string
+}
+
+export type QuestionSectionProps = {
     data: Survey
+}
+
+export type RespondentSectionProps = {
+    data: Answer[],
+    targetParticipant: number
+}
+
+export type RespondentCardProps = {
+    answer: Answer
+}
+
+export type AnswerDetailSectionProps = {
+    answer: Answer,
+    survey: Survey
 }

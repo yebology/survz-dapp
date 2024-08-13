@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { SurveyDetailPageProps } from "../../utils/interface";
+import { QuestionSectionProps } from "../../utils/interface";
 import { fillSurvey } from "../../services/answer";
 
-export const QuestionSection: React.FC<SurveyDetailPageProps> = ({ data }) => {
+export const QuestionSection: React.FC<QuestionSectionProps> = ({ data }) => {
   const maxChars = 500;
   const placeholder = `Answer with maximum ${maxChars} characters`;
 

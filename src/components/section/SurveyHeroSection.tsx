@@ -1,8 +1,9 @@
 import React from "react";
-import { SurveyDetailPageProps } from "../../utils/interface";
+import { SurveyHeroSectionProps } from "../../utils/interface";
 
-export const SurveyHeroSection: React.FC<SurveyDetailPageProps> = ({
+export const SurveyHeroSection: React.FC<SurveyHeroSectionProps> = ({
   data,
+  type
 }) => {
   const currentTimestamp = Math.floor(new Date().getTime() / 1000);
   const timeCondition =
@@ -50,7 +51,7 @@ export const SurveyHeroSection: React.FC<SurveyDetailPageProps> = ({
               <p className="font-normal text-[18px] leading-[30.8px] max-w-[600px] my-5">
                 {data.description}
               </p>
-              {timeCondition && (
+              {(timeCondition && type == "survey") && (
                 <button
                   onClick={scrollToQuestion}
                   style={{ backgroundColor: "#8e44ad" }}
