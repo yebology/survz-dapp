@@ -6,8 +6,7 @@ export const SurveyHeroSection: React.FC<SurveyHeroSectionProps> = ({
   type
 }) => {
   const currentTimestamp = Math.floor(new Date().getTime() / 1000);
-  const timeCondition =
-    data.state == 0 && currentTimestamp >= data.openTimestamp;
+  const timeCondition = currentTimestamp >= data.openTimestamp;
 
   const scrollToQuestion = () => {
     const element = document.getElementById("question");

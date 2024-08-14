@@ -9,8 +9,7 @@ import user from "../../assets/user.png";
 export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
   const navigate = useNavigate();
   const currentTimestamp = Math.floor(new Date().getTime() / 1000);
-  const timeCondition =
-    survey.state == 0 && currentTimestamp >= survey.openTimestamp;
+  const timeCondition = currentTimestamp >= survey.openTimestamp;
   const typeCondition = type != "My Responses";
 
   const handleClick = () => {
@@ -106,10 +105,8 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
             </p>
           )}
           <div className="flex items-center justify-start mt-3">
-            <img src={user} alt={survey.creator} className="size-6"/>
-            <p className="font-semibold text-sm">
-              {survey.creator}
-            </p>
+            <img src={user} alt={survey.creator} className="size-6" />
+            <p className="font-semibold text-sm">{survey.creator}</p>
           </div>
         </div>
       </div>

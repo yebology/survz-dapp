@@ -16,6 +16,13 @@ import { ResponsesPage } from "./pages/ResponsesPage";
 import { SurveyDetailPage } from "./pages/SurveyDetailPage";
 import { CreationDetailPage } from "./pages/CreationDetailPage";
 import { AnswerDetailPage } from "./pages/AnswerDetailPage";
+import { CreateNewSurveyModal } from "./components/modal/CreateNewSurveyModal";
+import { ErrorCreateSurveyModal } from "./components/modal/ErrorCreateSurveyModal";
+import { SuccessfullyCreateSurveyModal } from "./components/modal/SuccessfullyCreateSurveyModal";
+import { ErrorFillSurveyModal } from "./components/modal/ErrorFillSurveyModal";
+import { SuccessfullyFillSurveyModal } from "./components/modal/SuccessfullyFillSurveyModal";
+import { MustConnectWalletModal } from "./components/modal/MustConnectWalletModal";
+import { LoadingModal } from "./components/modal/LoadingModal";
 
 function App() {
   const phantomWallet = new PhantomWalletAdapter();
@@ -38,6 +45,13 @@ function App() {
             <Route path="/answer_detail/:id" element={<AnswerDetailPage />} />
           </Routes>
           <Footer />
+          <MustConnectWalletModal />
+          <LoadingModal />
+          <CreateNewSurveyModal />
+          <ErrorCreateSurveyModal />
+          <ErrorFillSurveyModal />
+          <SuccessfullyCreateSurveyModal />
+          <SuccessfullyFillSurveyModal />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

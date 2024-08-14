@@ -6,10 +6,10 @@ import { getProvider } from "../utils/helper";
 export async function createSurvey(
     surveyTitle: string,
     surveyDescription: string,
-    openTimestamp: bigint,
-    closeTimestamp: bigint,
-    targetParticipant: bigint,
-    totalReward: bigint,
+    openTimestamp: number,
+    closeTimestamp: number,
+    targetParticipant: number,
+    totalReward: number,
     questionList: string[]
 ) {
     const provider = await getProvider();

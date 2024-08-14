@@ -28,7 +28,6 @@ export const AnswerDetailPage = () => {
 
   return (
     <div className="mt-32 mx-10">
-        
       <AnswerDetailSection survey={surveyData} answer={answerData} />
     </div>
   );
