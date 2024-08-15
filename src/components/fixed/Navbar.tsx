@@ -2,6 +2,7 @@ import { useState } from "react";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { navList } from "../../utils/list";
 import { HamburgerMenu } from "./HamburgerMenu";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 export const Navbar = () => {
   const [openNavigation, setOpenNavigation] = useState(false);
@@ -53,7 +54,7 @@ export const Navbar = () => {
           <HamburgerMenu />
         </nav>
 
-        <button className="hidden text-sm lg:flex navbar-button cursor-pointer hover:scale-105 duration-200">Connect Wallet</button>
+        <WalletMultiButton />
 
         <button
           onClick={toggleNavigation}
