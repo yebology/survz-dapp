@@ -30,7 +30,7 @@ export const ErrorFillSurveyModal = () => {
         <button
           onClick={onClose}
           style={{
-            backgroundColor: "#8e44ad",
+            backgroundColor: "#542cac",
           }}
           className="inline-block w-full px-6 py-2.5 mt-5 text-white font-medium rounded-lg hover:scale-105 duration-200 shadow-md"
         >

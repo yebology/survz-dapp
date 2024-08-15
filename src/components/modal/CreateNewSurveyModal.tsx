@@ -2,8 +2,11 @@ import { IoClose } from "react-icons/io5";
 import { setGlobalState, useGlobalState } from "../../utils/global";
 import React, { useState } from "react";
 import { createSurvey } from "../../services/survey";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
 export const CreateNewSurveyModal = () => {
+  const wallet = useAnchorWallet();
+
   const [modalScale] = useGlobalState("createNewSurveyModalScale");
 
   const [image, setImage] = useState("");
@@ -90,6 +93,7 @@ export const CreateNewSurveyModal = () => {
     );
 
     if (
+      image != "" &&
       title != "" &&
       description != "" &&
       closeTimestamp >= openTimestamp &&
@@ -99,15 +103,17 @@ export const CreateNewSurveyModal = () => {
     ) {
       try {
         setGlobalState("loadingModalScale", "scale-100");
-        // await createSurvey(
-        //   title,
-        //   description,
-        //   openTimestamp,
-        //   closeTimestamp,
-        //   targetParticipantNumber,
-        //   totalRewardNumber,
-        //   questionList
-        // );
+        await createSurvey(
+          wallet,
+          image,
+          title,
+          description,
+          openTimestamp,
+          closeTimestamp,
+          targetParticipantNumber,
+          totalRewardNumber,
+          questionList
+        );
         setGlobalState("loadingModalScale", "scale-0");
         setGlobalState("successfullyCreateSurveyModal", "scale-100");
         reset();
@@ -278,7 +284,7 @@ export const CreateNewSurveyModal = () => {
           <button
             onClick={onSubmit}
             style={{
-              backgroundColor: "#8e44ad",
+              backgroundColor: "#542cac",
             }}
             className="inline-block px-6 py-2.5 mt-5 text-white font-medium rounded-lg hover:scale-105 duration-200 shadow-md"
           >

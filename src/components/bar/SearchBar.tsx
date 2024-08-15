@@ -16,7 +16,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ query, handleSearch, messa
           onChange={handleSearch}
         />
         <button 
-        style={{backgroundColor: '#8e44ad'}}
+        style={{backgroundColor: '#542cac'}}
         className="w-auto px-4 py-2 fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-full transition-all disabled:opacity-70">
           <div className="relative">
             <FaSearch />

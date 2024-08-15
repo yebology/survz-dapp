@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import { surveyList } from "../../utils/list";
 import { SurveyCard } from "../card/SurveyCard";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export const RecommendedSection = () => {
@@ -64,14 +64,9 @@ export const RecommendedSection = () => {
   }, []);
 
   return (
-    <section
-      id="recommended"
-      className="mb-24"
-    >
+    <section id="recommended" className="mb-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
         <div className="transition duration-500 ease-in-out transform scale-100 translate-x-0 translate-y-0 opacity-100">
-            
           <div className="mb-12 space-y-5 md:mb-12 text-center">
             <div className="inline-block font-poppins px-3 py-1 text-sm font-semibold text-indigo-100 rounded-lg text-center text-cn bg-[#202c47] bg-opacity-60 hover:cursor-pointer hover:bg-opacity-40">
               Last Call !
@@ -80,7 +75,7 @@ export const RecommendedSection = () => {
               <span
                 style={{
                   background:
-                    "linear-gradient(45deg, #6a0572, #8e44ad, #a29bfe)",
+                    "linear-gradient(45deg, #2c1a54, #542cac, #8575e0)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -95,7 +90,7 @@ export const RecommendedSection = () => {
               <span
                 style={{
                   background:
-                    "linear-gradient(45deg, #6a0572, #8e44ad, #a29bfe)",
+                    "linear-gradient(45deg, #2c1a54, #542cac, #8575e0)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -108,7 +103,7 @@ export const RecommendedSection = () => {
               <span
                 style={{
                   background:
-                    "linear-gradient(45deg, #6a0572, #8e44ad, #a29bfe)",
+                    "linear-gradient(45deg, #2c1a54, #542cac, #8575e0)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -122,7 +117,7 @@ export const RecommendedSection = () => {
         <div className="slider-container">
           <Slider ref={sliderRef} {...settings}>
             {surveyList.map((survey) => (
-              <SurveyCard key={survey.id} survey={survey} type={type}/>
+              <SurveyCard key={survey.id} survey={survey} type={type} />
             ))}
           </Slider>
         </div>

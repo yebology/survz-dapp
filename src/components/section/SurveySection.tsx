@@ -17,7 +17,7 @@ export const SurveySection: React.FC<SurveySectionProps> = ({ data, type }) => {
         {type == "My Creation" && (
           <button 
           onClick={onClick}
-          className="navbar-button hover:scale-105 duration-200">
+          className="gradient-component p-4 hover:scale-105 duration-200">
             Create New
           </button>
         )}

@@ -47,7 +47,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
         )}
         <div className="absolute bottom-0 p-2 left-0 flex space-x-1">
           <div
-            style={{ backgroundColor: "#8e44ad" }}
+            style={{ backgroundColor: "#542cac" }}
             className={`text-xs text-center font-semibold py-1 px-2 rounded-md mx-auto uppercase`}
           >
             <div className="flex items-center flex-row">
@@ -59,7 +59,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
         {typeCondition && (
           <div className="absolute bottom-0 p-2 right-0 flex space-x-1">
             <div
-              style={{ backgroundColor: "#a29bfe" }}
+              style={{ backgroundColor: "#8575e0" }}
               className={`text-xs text-center font-semibold py-1 px-2 rounded-md mx-auto uppercase`}
             >
               <div className="flex items-center flex-row">
@@ -104,7 +104,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
               {survey.description}
             </p>
           )}
-          <div className="flex items-center justify-start mt-3">
+          <div className="flex items-center justify-start mt-3 space-x-1">
             <img src={user} alt={survey.creator} className="size-6" />
             <p className="font-semibold text-sm">{survey.creator}</p>
           </div>

@@ -1,9 +1,11 @@
 import { BN, Program, web3 } from "@project-serum/anchor";
 import { survzProgramId, survzProgramInterface } from "../utils/constants";
-import { SystemProgram } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js";
 import { getProvider } from "../utils/helper";
 
 export async function createSurvey(
+    wallet: any,
+    image: string,
     surveyTitle: string,
     surveyDescription: string,
     openTimestamp: number,
@@ -12,7 +14,7 @@ export async function createSurvey(
     totalReward: number,
     questionList: string[]
 ) {
-    const provider = await getProvider();
+    const provider = await getProvider(wallet);
     if (!provider) {
         console.error("Provider isn't setup yet.")
         return null;
@@ -24,10 +26,13 @@ export async function createSurvey(
 
     const convertedOpenTimestamp = new BN(openTimestamp);
     const convertedCloseTimestamp = new BN(closeTimestamp);
+    const convertedTargetParticipant = new BN(targetParticipant);
+    const convertedTotalReward = new BN(totalReward * LAMPORTS_PER_SOL);
 
     const id = convertedCloseTimestamp.sub(convertedOpenTimestamp);
+    const surveyId = id.toArrayLike(Buffer, "le", 8);
     const [surveyPda] = await web3.PublicKey.findProgramAddressSync(
-        [Buffer.from("survey"), user.publicKey.toBuffer(), id.toBuffer()],
+        [Buffer.from("survey"), user.publicKey.toBuffer(), surveyId],
         program.programId
     )
 
@@ -39,8 +44,8 @@ export async function createSurvey(
             surveyDescription,
             convertedOpenTimestamp,
             convertedCloseTimestamp,
-            targetParticipant,
-            totalReward,
+            convertedTargetParticipant,
+            convertedTotalReward,
             questionList
         )
         .accounts({
@@ -56,13 +61,18 @@ export async function createSurvey(
 
 }
 
-export async function getAllSurvey() {
-    return await loadSurvey();
+export async function getAllSurvey(wallet : any) {
+    return await loadSurvey(wallet);
 }
 
-async function loadSurvey() {
+async function loadSurvey(wallet : any) {
     try {
-        const program = new Program(survzProgramInterface, survzProgramId);
+        const provider = await getProvider(wallet)
+        if (!provider) {
+            console.log("Provider isn't setup yet.")
+            return null;
+        }
+        const program = new Program(survzProgramInterface, survzProgramId, provider);
         const allSurvey = await program.account.survey.all();
         return structuredSurvey(allSurvey);
     }

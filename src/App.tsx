@@ -3,22 +3,25 @@ import {
   ConnectionProvider,
   WalletProvider,
 } from "@solana/wallet-adapter-react";
-import {
-  WalletModalProvider,
-} from "@solana/wallet-adapter-react-ui";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { endpoint } from "./utils/constants";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 import { useMemo } from "react";
-import '@solana/wallet-adapter-react-ui/styles.css';
+import "@solana/wallet-adapter-react-ui/styles.css";
 import Content from "./Content";
 
 function App() {
   const networkEndpoint = endpoint;
   const wallets = useMemo(
-    () => [new PhantomWalletAdapter()],
+    () => [
+      new PhantomWalletAdapter(), 
+      new SolflareWalletAdapter()
+    ],
     [networkEndpoint]
   );
-  console.log("Wallets initialized:", wallets);
 
   return (
     <ConnectionProvider endpoint={networkEndpoint}>

@@ -4,10 +4,11 @@ import { SystemProgram } from "@solana/web3.js";
 import { getProvider } from "../utils/helper";
 
 export async function fillSurvey(
+    wallet: any,
     surveyId: number,
     answerList: string[]
 ) {
-    const provider = await getProvider();
+    const provider = await getProvider(wallet);
     if (!provider) {
         console.error("Provider isn't setup yet.");
         return null;
