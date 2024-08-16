@@ -15,21 +15,8 @@ import { ErrorFillSurveyModal } from "./components/modal/ErrorFillSurveyModal";
 import { SuccessfullyFillSurveyModal } from "./components/modal/SuccessfullyFillSurveyModal";
 import { MustConnectWalletModal } from "./components/modal/MustConnectWalletModal";
 import { LoadingModal } from "./components/modal/LoadingModal";
-import { useEffect } from "react";
-import { getAllSurvey } from "./services/survey";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
 function Content() {
-  const wallet = useAnchorWallet();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllSurvey(wallet)
-      console.log(data)
-    }
-    fetchData();
-  }, [])
-  
   return (
     <div>
       <Navbar />

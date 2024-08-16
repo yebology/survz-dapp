@@ -12,7 +12,6 @@ export type Navbar = {
 export type Survey = {
     id: number,
     title: string,
-    image: string,
     description: string,
     creator: string,
     openTimestamp: number,

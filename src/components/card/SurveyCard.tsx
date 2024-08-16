@@ -2,9 +2,10 @@ import React from "react";
 import { SurveyCardProps } from "../../utils/interface";
 import { SiSolana } from "react-icons/si";
 import { FaUserGroup } from "react-icons/fa6";
-import { timestampToDateConverter } from "../../utils/helper";
+import { timestampToDateConverter, truncate } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import user from "../../assets/user.png";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
     >
       <div className="relative">
         <img
-          src={survey.image}
+          src={`https://static.vecteezy.com/system/resources/previews/023/587/494/original/online-survey-concept-tiny-people-filling-survey-form-feedback-service-internet-surveying-questionnaire-customers-voting-modern-flat-cartoon-style-illustration-on-white-background-vector.jpg`}
           alt={survey.title}
           className="rounded-xl h-48 w-full object-cover md:h-48 lg:h-48"
         />
@@ -52,7 +53,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
           >
             <div className="flex items-center flex-row">
               <SiSolana className="mr-1" />
-              <h5>{survey.rewardPerParticipant} SOL</h5>
+              <h5>{survey.rewardPerParticipant / LAMPORTS_PER_SOL} SOL</h5>
             </div>
           </div>
         </div>
@@ -106,7 +107,9 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
           )}
           <div className="flex items-center justify-start mt-3 space-x-1">
             <img src={user} alt={survey.creator} className="size-6" />
-            <p className="font-semibold text-sm">{survey.creator}</p>
+            <p className="font-semibold text-sm">
+              {truncate(survey.creator, 4, 4, 11)}
+            </p>
           </div>
         </div>
       </div>

@@ -47,8 +47,6 @@ export const surveyList: Survey[] = [
   {
     id: 1,
     title: "Web3 Development Trends",
-    image:
-      "https://static.vecteezy.com/system/resources/previews/023/587/494/original/online-survey-concept-tiny-people-filling-survey-form-feedback-service-internet-surveying-questionnaire-customers-voting-modern-flat-cartoon-style-illustration-on-white-background-vector.jpg",
     description:
       "Survey on the latest trends in Web3 development, tools, and frameworks.",
     creator: "Alice",
@@ -70,8 +68,6 @@ export const surveyList: Survey[] = [
   {
     id: 2,
     title: "Crypto Adoption in 2024",
-    image:
-      "https://static.vecteezy.com/system/resources/previews/023/587/494/original/online-survey-concept-tiny-people-filling-survey-form-feedback-service-internet-surveying-questionnaire-customers-voting-modern-flat-cartoon-style-illustration-on-white-background-vector.jpg",
     description:
       "Understanding the adoption rate and usage of cryptocurrencies in different regions.",
     creator: "Bob",
@@ -93,8 +89,6 @@ export const surveyList: Survey[] = [
   {
     id: 3,
     title: "Decentralized Finance (DeFi) Usage",
-    image:
-      "https://static.vecteezy.com/system/resources/previews/023/587/494/original/online-survey-concept-tiny-people-filling-survey-form-feedback-service-internet-surveying-questionnaire-customers-voting-modern-flat-cartoon-style-illustration-on-white-background-vector.jpg",
     description:
       "Survey on the popularity and usage of DeFi platforms among various demographics.",
     creator: "Charlie",
@@ -116,8 +110,6 @@ export const surveyList: Survey[] = [
   {
     id: 4,
     title: "NFT Market Insights",
-    image:
-      "https://static.vecteezy.com/system/resources/previews/023/587/494/original/online-survey-concept-tiny-people-filling-survey-form-feedback-service-internet-surveying-questionnaire-customers-voting-modern-flat-cartoon-style-illustration-on-white-background-vector.jpg",
     description:
       "Collecting insights on the buying and selling behavior in the NFT market.",
     creator: "Dave",

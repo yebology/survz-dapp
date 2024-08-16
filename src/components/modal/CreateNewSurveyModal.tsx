@@ -3,6 +3,7 @@ import { setGlobalState, useGlobalState } from "../../utils/global";
 import React, { useState } from "react";
 import { createSurvey } from "../../services/survey";
 import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
+import { connection } from "../../utils/constants";
 
 export const CreateNewSurveyModal = () => {
   const wallet = useAnchorWallet();
@@ -18,7 +19,9 @@ export const CreateNewSurveyModal = () => {
   const [closeTime, setCloseTime] = useState("");
   const [targetParticipant, setTargetParticipant] = useState("10");
   const [totalReward, setTotalReward] = useState("0.1");
-  const [questionList, setQuestionList] = useState<string[]>(Array(5).fill("a"));
+  const [questionList, setQuestionList] = useState<string[]>(
+    Array(5).fill("a")
+  );
 
   const now = new Date().getDate();
 
@@ -27,7 +30,7 @@ export const CreateNewSurveyModal = () => {
   const maxTitleAndImageChars = 100;
   const maxQuestionAndDescriptionChars = 256;
   const minTargetParticipant = 10;
-  const minTotalReward = 0.1;
+  const minTotalReward = 0.5;
 
   const titleAndImagePlaceholder = `Maximum ${maxTitleAndImageChars} characters`;
   const questionAndDescriptionPlaceholder = `Maximum ${maxQuestionAndDescriptionChars} characters`;
@@ -102,8 +105,7 @@ export const CreateNewSurveyModal = () => {
       allQuestionFilled
     ) {
       try {
-        setGlobalState("loadingModalScale", "scale-100");
-        await createSurvey(
+        const transaction = await createSurvey(
           connected,
           wallet,
           title,
@@ -114,9 +116,21 @@ export const CreateNewSurveyModal = () => {
           totalRewardNumber,
           questionList
         );
-        setGlobalState("loadingModalScale", "scale-0");
-        setGlobalState("successfullyCreateSurveyModal", "scale-100");
-        reset();
+        if (transaction) {
+          setGlobalState("loadingModalScale", "scale-100");
+          const confirmation = await connection.confirmTransaction(transaction, "confirmed");
+          if (confirmation) {
+            setGlobalState("loadingModalScale", "scale-0");
+            setGlobalState("successfullyCreateSurveyModal", "scale-100");
+            reset();
+          } 
+          else {
+            setGlobalState("errorCreateSurveyModalScale", "scale-100");
+          }
+        }
+        else {
+          setGlobalState("errorCreateSurveyModalScale", "scale-100");
+        }
       } catch (error) {
         console.log(error);
         setGlobalState("loadingModalScale", "scale-0");
@@ -241,7 +255,7 @@ export const CreateNewSurveyModal = () => {
           {Array.from({ length: 5 }, (_, index: number) => (
             <div key={index} className="mb-3">
               <label className="font-semibold text-sm text-n-7">
-                Question {(index + 1)}
+                Question {index + 1}
               </label>
               <div className="flex justify-between mt-2 items-center rounded-xl bg-gray-200">
                 <input
