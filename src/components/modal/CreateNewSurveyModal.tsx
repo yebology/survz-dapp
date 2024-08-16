@@ -2,21 +2,23 @@ import { IoClose } from "react-icons/io5";
 import { setGlobalState, useGlobalState } from "../../utils/global";
 import React, { useState } from "react";
 import { createSurvey } from "../../services/survey";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
 
 export const CreateNewSurveyModal = () => {
   const wallet = useAnchorWallet();
+  const { connected } = useWallet();
+  console.log(connected);
+  console.log(wallet?.publicKey.toBase58());
 
   const [modalScale] = useGlobalState("createNewSurveyModalScale");
 
-  const [image, setImage] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("a");
+  const [description, setDescription] = useState("a");
   const [openTime, setOpenTime] = useState("");
   const [closeTime, setCloseTime] = useState("");
-  const [targetParticipant, setTargetParticipant] = useState("");
-  const [totalReward, setTotalReward] = useState("");
-  const [questionList, setQuestionList] = useState<string[]>(Array(5).fill(""));
+  const [targetParticipant, setTargetParticipant] = useState("10");
+  const [totalReward, setTotalReward] = useState("0.1");
+  const [questionList, setQuestionList] = useState<string[]>(Array(5).fill("a"));
 
   const now = new Date().getDate();
 
@@ -25,7 +27,7 @@ export const CreateNewSurveyModal = () => {
   const maxTitleAndImageChars = 100;
   const maxQuestionAndDescriptionChars = 256;
   const minTargetParticipant = 10;
-  const minTotalReward = 1;
+  const minTotalReward = 0.1;
 
   const titleAndImagePlaceholder = `Maximum ${maxTitleAndImageChars} characters`;
   const questionAndDescriptionPlaceholder = `Maximum ${maxQuestionAndDescriptionChars} characters`;
@@ -39,7 +41,6 @@ export const CreateNewSurveyModal = () => {
   const reset = () => {
     setTitle("");
     setDescription("");
-    setImage("");
     setOpenTime("");
     setCloseTime("");
     setTargetParticipant("");
@@ -93,19 +94,18 @@ export const CreateNewSurveyModal = () => {
     );
 
     if (
-      image != "" &&
       title != "" &&
       description != "" &&
       closeTimestamp >= openTimestamp &&
       targetParticipantNumber >= 10 &&
-      totalRewardNumber >= 1 &&
+      totalRewardNumber >= 0.1 &&
       allQuestionFilled
     ) {
       try {
         setGlobalState("loadingModalScale", "scale-100");
         await createSurvey(
+          connected,
           wallet,
-          image,
           title,
           description,
           openTimestamp,
@@ -143,18 +143,6 @@ export const CreateNewSurveyModal = () => {
               <IoClose color="black" size={24} />
             </button>
           </div>
-          <div className="flex justify-center items-center mt-5">
-            <div className="rounded-xl overflow-hidden w-20 h-20">
-              <img
-                src={
-                  image ||
-                  "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg"
-                }
-                alt="title"
-                className="h-full w-full object-cover cursor-pointer"
-              />
-            </div>
-          </div>
           <div className="my-3">
             <label className="font-semibold text-n-7 text-sm">
               Survey Title
@@ -166,19 +154,6 @@ export const CreateNewSurveyModal = () => {
                 placeholder={titleAndImagePlaceholder}
                 onChange={(e) => handleTitleAndImageChange(e, setTitle)}
                 value={title}
-                required
-              />
-            </div>
-          </div>
-          <div className="mb-3">
-            <label className="font-semibold text-sm text-n-7">Image URL</label>
-            <div className="flex justify-between mt-2 items-center rounded-xl bg-gray-200">
-              <input
-                className={fieldStyle}
-                type="text"
-                placeholder={titleAndImagePlaceholder}
-                onChange={(e) => handleTitleAndImageChange(e, setImage)}
-                value={image}
                 required
               />
             </div>
@@ -239,7 +214,7 @@ export const CreateNewSurveyModal = () => {
                 <input
                   className={fieldStyle}
                   type="number"
-                  min={1}
+                  min={0.1}
                   step={0.1}
                   placeholder={totalRewardPlaceholder}
                   onChange={(e) => setTotalReward(e.target.value)}

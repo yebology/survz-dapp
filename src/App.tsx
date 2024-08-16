@@ -12,6 +12,7 @@ import {
 import { useMemo } from "react";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import Content from "./Content";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 function App() {
   const networkEndpoint = endpoint;

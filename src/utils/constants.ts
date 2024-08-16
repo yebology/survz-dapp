@@ -1,8 +1,8 @@
 import idl from "../idl/DeployedContract.json";
-import { Connection, PublicKey } from "@solana/web3.js";
+import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 
 export const commitmentLevel = "confirmed";
-export const endpoint = import.meta.env.VITE_ALCHEMY_API_KEY;
+export const endpoint = clusterApiUrl("devnet");
 export const programId = import.meta.env.PROGRAM_ID;
 export const connection = new Connection(endpoint, commitmentLevel);
 

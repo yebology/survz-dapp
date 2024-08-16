@@ -1,9 +1,8 @@
 import { AnchorProvider } from "@coral-xyz/anchor";
 import { commitmentLevel, connection } from "./constants";
 
-export async function getProvider(wallet : any) {
+export function getProvider(wallet : any) {
   if (!wallet) {
-    console.error("Wallet not connected.");
     return null;
   }
   const provider = new AnchorProvider(connection, wallet, {

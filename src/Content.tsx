@@ -29,6 +29,7 @@ function Content() {
     }
     fetchData();
   }, [])
+  
   return (
     <div>
       <Navbar />

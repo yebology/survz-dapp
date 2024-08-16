@@ -53,7 +53,7 @@
         {
           "name": "questionList",
           "type": {
-            "vec": "string"
+            "array": ["string", 5]
           }
         }
       ]
@@ -173,7 +173,7 @@
           {
             "name": "questionList",
             "type": {
-              "vec": "string"
+              "array": ["string", 5]
             }
           }
         ]
@@ -256,6 +256,6 @@
     }
   ],
   "metadata": {
-    "address": "E4ToFZT9sWoMewsLiVKweYt2QRHwUFBZ2dJcw92br2Dx"
+    "address": "Aq4XKH5oLKUNDwxDqD7RDyYz76ZqY3HP1ttb8KW9HMop"
   }
 }

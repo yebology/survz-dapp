@@ -1,11 +1,12 @@
-import { BN, Program, web3 } from "@project-serum/anchor";
+import { web3, Program } from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { survzProgramId, survzProgramInterface } from "../utils/constants";
 import { LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js";
 import { getProvider } from "../utils/helper";
 
 export async function createSurvey(
+    connected: any,
     wallet: any,
-    image: string,
     surveyTitle: string,
     surveyDescription: string,
     openTimestamp: number,
@@ -14,27 +15,39 @@ export async function createSurvey(
     totalReward: number,
     questionList: string[]
 ) {
-    const provider = await getProvider(wallet);
+    const provider = getProvider(wallet);
     if (!provider) {
-        console.error("Provider isn't setup yet.")
+        console.error("Provider isn't available yet.")
         return null;
+    }
+    if (!connected) {
+        console.error("Wallet is not connected.")
     }
 
     const user = provider.wallet;
     const program = new Program(survzProgramInterface, survzProgramId, provider);
     const systemProgramId = SystemProgram.programId;
 
-    const convertedOpenTimestamp = new BN(openTimestamp);
-    const convertedCloseTimestamp = new BN(closeTimestamp);
-    const convertedTargetParticipant = new BN(targetParticipant);
-    const convertedTotalReward = new BN(totalReward * LAMPORTS_PER_SOL);
+    const convertedOpenTimestamp = new anchor.BN(openTimestamp);
+    console.log("open " + openTimestamp);
+    console.log("convert " + convertedOpenTimestamp);
+    const convertedCloseTimestamp = new anchor.BN(closeTimestamp);
+    console.log("close " + closeTimestamp);
+    console.log("convert " + convertedCloseTimestamp);
+    const convertedTargetParticipant = new anchor.BN(targetParticipant);
+    console.log("target " + targetParticipant);
+    console.log("convertedTargetParticipant")
+    const convertedTotalReward = new anchor.BN(totalReward * LAMPORTS_PER_SOL);
+    console.log("total reward " + totalReward);
+    console.log("converted " + convertedTotalReward);
 
     const id = convertedCloseTimestamp.sub(convertedOpenTimestamp);
     const surveyId = id.toArrayLike(Buffer, "le", 8);
-    const [surveyPda] = await web3.PublicKey.findProgramAddressSync(
+    const [surveyPda] = web3.PublicKey.findProgramAddressSync(
         [Buffer.from("survey"), user.publicKey.toBuffer(), surveyId],
         program.programId
     )
+    console.log(surveyPda.toString());
 
     try {
         await program.methods
@@ -67,7 +80,7 @@ export async function getAllSurvey(wallet : any) {
 
 async function loadSurvey(wallet : any) {
     try {
-        const provider = await getProvider(wallet)
+        const provider = getProvider(wallet)
         if (!provider) {
             console.log("Provider isn't setup yet.")
             return null;
