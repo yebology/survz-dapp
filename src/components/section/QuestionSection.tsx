@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { QuestionSectionProps } from "../../utils/interface";
 import { fillSurvey } from "../../services/answer";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { setGlobalState } from "../../utils/global";
+import { useNavigate } from "react-router-dom";
 
 export const QuestionSection: React.FC<QuestionSectionProps> = ({ data }) => {
-  const maxChars = 500;
+  const wallet = useAnchorWallet();
+  const navigate = useNavigate();
+
+  const maxChars = 200;
   const placeholder = `Answer with maximum ${maxChars} characters`;
 
   const [firstAnswer, setFirstAnswer] = useState("");
@@ -27,15 +33,64 @@ export const QuestionSection: React.FC<QuestionSectionProps> = ({ data }) => {
     return [firstAnswer, secondAnswer, thirdAnswer, fourthAnswer, fifthAnswer];
   };
 
-  const onSubmit = async () => {
-    const answerList = arrangeAnwer();
-    // try {
-    //   await fillSurvey(data.id, answerList);
-    // } 
-    // catch (error) {
+  const onSubmit = () => {
+    const validate = checkInput();
+    switch (validate) {
+      case true:
+        processInput();
+        break;
+      case false:
+        setGlobalState("errorFillSurveyModalScale", "scale-100");
+        break;
+      default:
+        break;
+    }
+  };
 
-    // }
+  const checkInput = () => {
+    if (
+      firstAnswer != "" &&
+      secondAnswer != "" &&
+      thirdAnswer != "" &&
+      fourthAnswer != "" &&
+      fifthAnswer != ""
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const processInput = async () => {
+    try {
+      if (!wallet) {
+        setGlobalState("mustConnectWalletModalScale", "scale-100");
+      }
+      const answerList = arrangeAnwer();
+      setGlobalState("loadingModalScale", "scale-100");
+      await fillSurvey(
+        wallet,
+        data.id,
+        data.creator,
+        answerList
+      );
+      successScenario();
+    } catch (error) {
+      errorScenario();
+      console.log(error);
+    }
+  };
+
+  const successScenario = () => {
+    setGlobalState("loadingModalScale", "scale-0");
+    setGlobalState("successfullyFillSurveyModal", "scale-100");
     reset();
+    navigate(`/survey`);
+  };
+
+  const errorScenario = () => {
+    setGlobalState("loadingModalScale", "scale-0");
+    setGlobalState("errorFillSurveyModalScale", "scale-100");
   };
 
   const reset = () => {
@@ -116,7 +171,7 @@ export const QuestionSection: React.FC<QuestionSectionProps> = ({ data }) => {
       <div className="flex justify-end">
         <button
           onClick={onSubmit}
-          className="mt-6 text-white font-normal rounded-xl navbar-button py-3 px-8 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
+          className="mt-6 text-white font-normal rounded-xl gradient-component p-4 transition-transform transform hover:shadow-lg hover:scale-105 transition:200"
         >
           Submit Response
         </button>

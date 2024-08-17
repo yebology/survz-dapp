@@ -1,28 +1,60 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { defaultSurvey } from "../utils/default";
-import { Survey } from "../utils/interface";
-import { answerList, surveyList } from "../utils/list";
+import { Answer, Survey } from "../utils/interface";
 import { SurveyHeroSection } from "../components/section/SurveyHeroSection";
 import { RespondentSection } from "../components/section/RespondentSection";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { setGlobalState } from "../utils/global";
+import { getCreationSurvey } from "../services/survey";
+import { getAnswer } from "../services/answer";
 
 export const CreationDetailPage = () => {
   const { id } = useParams();
+  const wallet = useAnchorWallet();
+
   const type = "creation";
-  const [surveyData, setSurveyData] = useState<Survey>(defaultSurvey);
+  const [surveyDetail, setSurveyDetail] = useState<Survey>(defaultSurvey);
+  const [answerData, setAnswerData] = useState<Answer[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {
+      const fetchData = async () => {
         const surveyId = parseInt(id);
-        const filtered = surveyList.find((survey : Survey) => survey.id === surveyId);
-        setSurveyData(filtered || defaultSurvey);
+        const creationSurvey = await getCreationSurvey(wallet);
+        const surveyDetail = creationSurvey.find((survey : Survey) => survey.id === surveyId);
+        setSurveyDetail(surveyDetail);
+      }
+      fetchData();
     }
-  }, [id])
+  }, [id, surveyDetail])
+
+  useEffect(() => {
+    if (surveyDetail) {
+      const fetchData = async () => {
+        const allAnswer = await getAnswer(wallet);
+        const answerData = allAnswer.filter((answer : Answer) => answer.surveyId === surveyDetail.id);
+        setAnswerData(answerData);
+        setLoading(false);
+      }
+      fetchData();
+    }
+  }, [surveyDetail])
+
+  useEffect(() => {
+    if (loading || !wallet) {
+      setGlobalState("loadingModalScale", "scale-100");
+    } 
+    else {
+      setGlobalState("loadingModalScale", "scale-0");
+    }
+  }, [loading, wallet]);
 
   return (
     <>
-      <SurveyHeroSection data={surveyData} type={type}/>
-      <RespondentSection data={answerList} targetParticipant={surveyData.targetParticipant}/>
+      <SurveyHeroSection data={surveyDetail} type={type}/>
+      <RespondentSection data={answerData} targetParticipant={surveyDetail.targetParticipant}/>
     </>
   );
 };

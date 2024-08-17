@@ -19,11 +19,11 @@ export const SurveyHeroSection: React.FC<SurveyHeroSectionProps> = ({
 
   return (
     <section className="relative flex justify-center text-white items-center mb-8 mt-24">
-      <div className="relative w-full h-full py-16">
+      <div className="relative w-full h-full py-10">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${data.image})`,
+            backgroundImage: `url("https://static.vecteezy.com/system/resources/previews/023/587/494/original/online-survey-concept-tiny-people-filling-survey-form-feedback-service-internet-surveying-questionnaire-customers-voting-modern-flat-cartoon-style-illustration-on-white-background-vector.jpg")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -53,8 +53,8 @@ export const SurveyHeroSection: React.FC<SurveyHeroSectionProps> = ({
               {(timeCondition && type == "survey") && (
                 <button
                   onClick={scrollToQuestion}
-                  style={{ backgroundColor: "#8e44ad" }}
-                  className="hover:scale-105 transition-200 uppercase p-4 rounded-xl shadow-md"
+                  style={{ backgroundColor: "#542cac" }}
+                  className="hover:scale-105 duration-200 uppercase p-4 rounded-xl shadow-md"
                 >
                   fill survey
                 </button>

@@ -5,11 +5,11 @@ import { LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js";
 import { getProvider } from "../utils/helper";
 import { Buffer } from 'buffer';
 import { AnchorWallet } from "@solana/wallet-adapter-react";
+import { Survey } from "../utils/interface";
 
 // create survey
 export async function createSurvey(
-  connected: any,
-  wallet: any,
+  wallet: AnchorWallet | undefined,
   surveyTitle: string,
   surveyDescription: string,
   openTimestamp: number,
@@ -22,9 +22,6 @@ export async function createSurvey(
   if (!provider) {
     console.error("Provider isn't available yet.");
     return null;
-  }
-  if (!connected) {
-    console.error("Wallet is not connected.");
   }
 
   const user = provider.wallet;
@@ -100,7 +97,15 @@ export async function getCreationSurvey(wallet : AnchorWallet | undefined) {
 }
 
 async function loadCreationSurvey(wallet : AnchorWallet | undefined) {
-  
+  try {
+    const allSurvey = await loadAllSurvey(wallet);
+    const creationSurvey = allSurvey.filter((survey : Survey) => survey.creator == wallet?.publicKey.toString());
+    return creationSurvey;
+  }
+  catch (error) {
+    console.error(error);
+    return null;
+  }
 }
 
 function structuredSurvey(allSurvey: any) {

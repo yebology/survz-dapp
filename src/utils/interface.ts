@@ -25,10 +25,8 @@ export type Survey = {
 }
 
 export type Answer = {
-    id: number,
     user: string,
     surveyId: number,
-    timestamp: number,
     answerList: string[]
 }
 

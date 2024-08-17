@@ -2,14 +2,12 @@ import { IoClose } from "react-icons/io5";
 import { setGlobalState, useGlobalState } from "../../utils/global";
 import React, { useState } from "react";
 import { createSurvey } from "../../services/survey";
-import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
-import { connection } from "../../utils/constants";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { useNavigate } from "react-router-dom";
 
 export const CreateNewSurveyModal = () => {
   const wallet = useAnchorWallet();
-  const { connected } = useWallet();
-  console.log(connected);
-  console.log(wallet?.publicKey.toBase58());
+  const navigate = useNavigate();
 
   const [modalScale] = useGlobalState("createNewSurveyModalScale");
 
@@ -105,8 +103,8 @@ export const CreateNewSurveyModal = () => {
       allQuestionFilled
     ) {
       try {
-        const transaction = await createSurvey(
-          connected,
+        setGlobalState("loadingModalScale", "scale-100");
+        await createSurvey(
           wallet,
           title,
           description,
@@ -116,29 +114,28 @@ export const CreateNewSurveyModal = () => {
           totalRewardNumber,
           questionList
         );
-        if (transaction) {
-          setGlobalState("loadingModalScale", "scale-100");
-          const confirmation = await connection.confirmTransaction(transaction, "confirmed");
-          if (confirmation) {
-            setGlobalState("loadingModalScale", "scale-0");
-            setGlobalState("successfullyCreateSurveyModal", "scale-100");
-            reset();
-          } 
-          else {
-            setGlobalState("errorCreateSurveyModalScale", "scale-100");
-          }
-        }
-        else {
-          setGlobalState("errorCreateSurveyModalScale", "scale-100");
-        }
-      } catch (error) {
+        successScenario();
+      } 
+      catch (error) {
         console.log(error);
-        setGlobalState("loadingModalScale", "scale-0");
-        setGlobalState("errorCreateSurveyModalScale", "scale-100");
+        errorScenario();
       }
-    } else {
+    } 
+    else {
       setGlobalState("errorCreateSurveyModalScale", "scale-100");
     }
+  };
+
+  const successScenario = () => {
+    setGlobalState("loadingModalScale", "scale-0");
+    setGlobalState("successfullyCreateSurveyModal", "scale-100");
+    reset();
+    navigate(`/creation`);
+  };
+
+  const errorScenario = () => {
+    setGlobalState("loadingModalScale", "scale-0");
+    setGlobalState("errorCreateSurveyModalScale", "scale-100");    
   };
 
   return (

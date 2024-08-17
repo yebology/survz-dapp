@@ -27,7 +27,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
   return (
     <div
       onClick={handleClick}
-      className={`rounded-lg hover:scale-105 duration-500 shadow-lg cursor-pointer survey-card mr-4 mb-4 mt-4 h-auto`}
+      className={`rounded-lg hover:scale-105 duration-500 shadow-lg cursor-pointer gradient-component mr-4 mb-4 mt-4 h-auto`}
     >
       <div className="relative">
         <img

@@ -1,27 +1,57 @@
 import { useEffect, useState } from "react";
 import { Survey } from "../utils/interface";
-import { surveyList } from "../utils/list";
 import { SearchBar } from "../components/bar/SearchBar";
 import { SurveySection } from "../components/section/SurveySection";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { getCreationSurvey } from "../services/survey";
+import { setGlobalState } from "../utils/global";
 
 export const CreationPage = () => {
+  const wallet = useAnchorWallet();
+
   const message = "Search my survey...";
   const type = "My Creation";
   const [query, setQuery] = useState("");
   const [filteredSurvey, setFilteredSurvey] = useState<Survey[]>([]);
+  const [creationData, setCreationData] = useState<Survey[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
   useEffect(() => {
-    if (surveyList) {
-      const filteredData = surveyList.filter((survey) =>
+    const fetchData = async () => {
+      try {
+        const creationData = await getCreationSurvey(wallet);
+        setCreationData(creationData);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData()
+  }, [wallet])
+
+  useEffect(() => {
+    if (creationData) {
+      const filteredData = creationData.filter((survey : Survey) =>
         survey.title.toLocaleLowerCase().includes(query.toLowerCase())
       );
       setFilteredSurvey(filteredData);
     }
-  }, [query]);
+    setLoading(false);
+  }, [query, creationData]);
+
+  useEffect(() => {
+    if (loading || !wallet) {
+      setGlobalState("loadingModalScale", "scale-100");
+    } 
+    else {
+      setGlobalState("loadingModalScale", "scale-0");
+    }
+  }, [loading, wallet]);
+
 
   return (
     <div className="mt-32 mx-10">
