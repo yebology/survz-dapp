@@ -1,27 +1,51 @@
 import { useEffect, useState } from "react";
 import { Survey } from "../utils/interface";
-import { surveyList } from "../utils/list";
 import { SearchBar } from "../components/bar/SearchBar";
 import { SurveySection } from "../components/section/SurveySection";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { setGlobalState } from "../utils/global";
+import { getResponsesSurvey } from "../services/survey";
 
 export const ResponsesPage = () => {
+  const wallet = useAnchorWallet();
+
   const message = "Search history...";
   const type = "My Responses";
   const [query, setQuery] = useState("");
+  const [responsesData, setResponsesData] = useState<Survey[]>([]);
   const [filteredSurvey, setFilteredSurvey] = useState<Survey[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
   useEffect(() => {
-    if (surveyList) {
-      const filteredData = surveyList.filter((survey) =>
+    const fetchData = async () => {
+      const responsesData = await getResponsesSurvey(wallet);
+      setResponsesData(responsesData);
+    }
+    fetchData();
+  }, [wallet]);
+
+  useEffect(() => {
+    if (responsesData) {
+      const filteredData = responsesData.filter((survey : Survey) =>
         survey.title.toLocaleLowerCase().includes(query.toLowerCase())
       );
       setFilteredSurvey(filteredData);
+      setLoading(false);
     }
-  }, [query]);
+  }, [query, responsesData]);
+
+  useEffect(() => {
+    if (loading || !wallet) {
+      setGlobalState("loadingModalScale", "scale-100");
+    }
+    else {
+      setGlobalState("loadingModalScale", "scale-0");
+    }
+  }, [loading, wallet]);
 
   return (
     <div className="mt-32 mx-10">

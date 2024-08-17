@@ -30,6 +30,12 @@ export type Answer = {
     answerList: string[]
 }
 
+export type Responses = {
+    reward: number,
+    title: string,
+    timestamp: number
+}
+
 export type SurveyCardProps = {
     survey: Survey,
     type: string

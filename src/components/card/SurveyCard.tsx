@@ -6,6 +6,8 @@ import { timestampToDateConverter, truncate } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import user from "../../assets/user.png";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { FaRegCopy } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
 
 export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
   const navigate = useNavigate();
@@ -23,6 +25,17 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
         return;
     }
   };
+
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(survey.creator);
+      toast.success("Successfully copied creator address.")
+    }
+    catch (error) {
+      console.log(error)
+      toast.error("Error copied creator address.")
+    }
+  }
 
   return (
     <div
@@ -77,29 +90,20 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
       <div>
         <div className="p-4">
           <h5 className="font-semibold line-clamp-1 mb-2">{survey.title}</h5>
-          {!typeCondition ? (
+          <div>
             <div className="flex flex-row text-xs">
-              <h5 className="font-semibold">Answered on </h5>
+              <h5 className="font-semibold"> Start : </h5>
               <h5 className="font-normal ml-1">
                 {timestampToDateConverter(survey.openTimestamp)}
               </h5>
             </div>
-          ) : (
-            <div>
-              <div className="flex flex-row text-xs">
-                <h5 className="font-semibold"> Start : </h5>
-                <h5 className="font-normal ml-1">
-                  {timestampToDateConverter(survey.openTimestamp)}
-                </h5>
-              </div>
-              <div className="mt-1 flex flex-row text-xs">
-                <h5 className="font-semibold"> End : </h5>
-                <h5 className="font-normal ml-1">
-                  {timestampToDateConverter(survey.closeTimestamp)}
-                </h5>
-              </div>
+            <div className="mt-1 flex flex-row text-xs">
+              <h5 className="font-semibold"> End : </h5>
+              <h5 className="font-normal ml-1">
+                {timestampToDateConverter(survey.closeTimestamp)}
+              </h5>
             </div>
-          )}
+          </div>
           {typeCondition && (
             <p className="font-normal text-xs line-clamp-2 text-n-3 my-2">
               {survey.description}
@@ -110,6 +114,7 @@ export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
             <p className="font-semibold text-sm">
               {truncate(survey.creator, 4, 4, 11)}
             </p>
+            <FaRegCopy color="#542cac" onClick={onCopy}/>
           </div>
         </div>
       </div>

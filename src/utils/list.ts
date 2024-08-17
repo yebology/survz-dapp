@@ -132,10 +132,8 @@ export const surveyList: Survey[] = [
 
 export const answerList: Answer[] = [
   {
-    id: 0,
     user: "user1",
     surveyId: 1,
-    timestamp: 1692067200,
     answerList: [
       "I prefer working from home.",
       "The interface is user-friendly.",
@@ -145,10 +143,8 @@ export const answerList: Answer[] = [
     ],
   },
   {
-    id: 1,
     user: "user2",
     surveyId: 1,
-    timestamp: 1692067200,
     answerList: [
       "The delivery was delayed.",
       "The pricing is reasonable.",
@@ -158,10 +154,8 @@ export const answerList: Answer[] = [
     ],
   },
   {
-    id: 2,
     user: "user3",
     surveyId: 1,
-    timestamp: 1692067200,    
     answerList: [
       "I found the tutorial helpful.",
       "The support team is responsive.",
@@ -171,10 +165,8 @@ export const answerList: Answer[] = [
     ],
   },
   {
-    id: 3,
     user: "user4",
     surveyId: 1,
-    timestamp: 1692067200,
     answerList: [
       "The app crashes occasionally.",
       "I love the new features.",
@@ -184,10 +176,8 @@ export const answerList: Answer[] = [
     ],
   },
   {
-    id: 4,
     user: "user5",
     surveyId: 1,
-    timestamp: 1692067200,
     answerList: [
       "The survey was too long.",
       "The questions were relevant.",

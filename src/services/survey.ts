@@ -3,9 +3,10 @@ import { BN } from "@coral-xyz/anchor";
 import { survzProgramId, survzProgramInterface } from "../utils/constants";
 import { LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js";
 import { getProvider } from "../utils/helper";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 import { AnchorWallet } from "@solana/wallet-adapter-react";
-import { Survey } from "../utils/interface";
+import { Answer, Survey } from "../utils/interface";
+import { getAnswer } from "./answer";
 
 // create survey
 export async function createSurvey(
@@ -34,7 +35,7 @@ export async function createSurvey(
   const convertedTotalReward = new BN(totalReward * LAMPORTS_PER_SOL);
 
   const id = new BN(new Date().getTime());
-  const surveyId = id.toArrayLike(Buffer, 'le', 8);
+  const surveyId = id.toArrayLike(Buffer, "le", 8);
   const [surveyPda] = web3.PublicKey.findProgramAddressSync(
     [Buffer.from("survey"), user.publicKey.toBuffer(), surveyId],
     program.programId
@@ -59,8 +60,7 @@ export async function createSurvey(
         systemProgram: systemProgramId,
       })
       .rpc();
-      console.log(surveyPda.toString());
-
+    console.log(surveyPda.toString());
   } catch (error) {
     console.error(error);
   }
@@ -92,17 +92,38 @@ async function loadAllSurvey(wallet: AnchorWallet | undefined) {
 }
 
 // creation survey
-export async function getCreationSurvey(wallet : AnchorWallet | undefined) {
+export async function getCreationSurvey(wallet: AnchorWallet | undefined) {
   return await loadCreationSurvey(wallet);
 }
 
-async function loadCreationSurvey(wallet : AnchorWallet | undefined) {
+async function loadCreationSurvey(wallet: AnchorWallet | undefined) {
   try {
     const allSurvey = await loadAllSurvey(wallet);
-    const creationSurvey = allSurvey.filter((survey : Survey) => survey.creator == wallet?.publicKey.toString());
+    const creationSurvey = allSurvey.filter(
+      (survey: Survey) => survey.creator == wallet?.publicKey.toString()
+    );
     return creationSurvey;
+  } catch (error) {
+    console.error(error);
+    return null;
   }
-  catch (error) {
+}
+
+// responses survey
+export async function getResponsesSurvey(wallet: AnchorWallet | undefined) {
+  return await loadResponsesSurvey(wallet);
+}
+
+async function loadResponsesSurvey(wallet: AnchorWallet | undefined) {
+  try {
+    const allSurvey = await loadAllSurvey(wallet);
+    const allAnswer = await getAnswer(wallet);
+    const filteredAnswer = allAnswer.filter((answer : Answer) => answer.user === wallet?.publicKey.toString());
+    const responsesSurvey = filteredAnswer.map((answer : Answer) => {
+      return allSurvey.find((survey : Survey) => survey.id === answer.surveyId)
+    })
+    return responsesSurvey;
+  } catch (error) {
     console.error(error);
     return null;
   }

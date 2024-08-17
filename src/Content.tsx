@@ -15,6 +15,7 @@ import { ErrorFillSurveyModal } from "./components/modal/ErrorFillSurveyModal";
 import { SuccessfullyFillSurveyModal } from "./components/modal/SuccessfullyFillSurveyModal";
 import { MustConnectWalletModal } from "./components/modal/MustConnectWalletModal";
 import { LoadingModal } from "./components/modal/LoadingModal";
+import { ToastContainer } from "react-toastify";
 
 function Content() {
   return (
@@ -37,6 +38,12 @@ function Content() {
       <ErrorFillSurveyModal />
       <SuccessfullyCreateSurveyModal />
       <SuccessfullyFillSurveyModal />
+      <ToastContainer 
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+      />
     </div>
   );
 }
