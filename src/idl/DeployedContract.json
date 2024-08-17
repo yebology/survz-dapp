@@ -90,7 +90,7 @@
         {
           "name": "answerList",
           "type": {
-            "vec": "string"
+            "array": ["string", 5]
           }
         }
       ]
@@ -111,9 +111,13 @@
             "type": "u64"
           },
           {
+            "name": "timestamp",
+            "type": "u64"
+          },
+          {
             "name": "answerList",
             "type": {
-              "vec": "string"
+              "array": ["string", 5]
             }
           }
         ]
@@ -256,6 +260,6 @@
     }
   ],
   "metadata": {
-    "address": "Aq4XKH5oLKUNDwxDqD7RDyYz76ZqY3HP1ttb8KW9HMop"
+    "address": "7bfa2DiKuMvy6vDxyTjfnvPt62JuQG39XWbPtgJyHwYd"
   }
 }

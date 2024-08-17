@@ -1,11 +1,13 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
-import { surveyList } from "../../utils/list";
 import { SurveyCard } from "../card/SurveyCard";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { RecommendationSectionProps } from "../../utils/interface";
 
-export const RecommendedSection = () => {
+export const RecommendedSection: React.FC<RecommendationSectionProps> = ({
+  data,
+}) => {
   const type = "Recommendation";
   let sliderRef = useRef<Slider | null>(null);
   const playAnimation = () => {
@@ -116,7 +118,7 @@ export const RecommendedSection = () => {
         </div>
         <div className="slider-container">
           <Slider ref={sliderRef} {...settings}>
-            {surveyList.map((survey) => (
+            {data.map((survey) => (
               <SurveyCard key={survey.id} survey={survey} type={type} />
             ))}
           </Slider>

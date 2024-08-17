@@ -52,7 +52,6 @@ export const CreationPage = () => {
     }
   }, [loading, wallet]);
 
-
   return (
     <div className="mt-32 mx-10">
       <SearchBar query={query} handleSearch={handleSearch} message={message} />

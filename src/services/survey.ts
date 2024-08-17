@@ -91,6 +91,24 @@ async function loadAllSurvey(wallet: AnchorWallet | undefined) {
   }
 }
 
+// recommended survey
+export async function getRecommendedSurvey(wallet : AnchorWallet | undefined) {
+  return await loadRecommendedSurvey(wallet);
+}
+
+async function loadRecommendedSurvey(wallet : AnchorWallet | undefined) {
+  try {
+    const today = new Date().setHours(0, 0, 0, 0);
+    const allSurvey = await loadAllSurvey(wallet);
+    const recommendedSurvey = allSurvey.filter((survey : Survey) => new Date(survey.closeTimestamp * 1000).setHours(0, 0, 0, 0) === today);
+    return recommendedSurvey;
+  }
+  catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
 // creation survey
 export async function getCreationSurvey(wallet: AnchorWallet | undefined) {
   return await loadCreationSurvey(wallet);
@@ -105,7 +123,7 @@ async function loadCreationSurvey(wallet: AnchorWallet | undefined) {
     return creationSurvey;
   } catch (error) {
     console.error(error);
-    return null;
+    return [];
   }
 }
 
@@ -125,7 +143,7 @@ async function loadResponsesSurvey(wallet: AnchorWallet | undefined) {
     return responsesSurvey;
   } catch (error) {
     console.error(error);
-    return null;
+    return [];
   }
 }
 

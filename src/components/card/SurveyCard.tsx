@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import user from "../../assets/user.png";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { FaRegCopy } from "react-icons/fa";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const SurveyCard: React.FC<SurveyCardProps> = ({ survey, type }) => {
   const navigate = useNavigate();

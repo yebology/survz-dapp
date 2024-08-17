@@ -4,7 +4,6 @@ export const defaultSurvey: Survey = {
   id: 0,
   title: "",
   description: "",
-  image: "",
   creator: "",
   openTimestamp: 0,
   closeTimestamp: 0,
@@ -17,7 +16,6 @@ export const defaultSurvey: Survey = {
 };
 
 export const defaultAnswer: Answer = {
-  id: 0,
   user: "",
   surveyId: 0,
   timestamp: 0,

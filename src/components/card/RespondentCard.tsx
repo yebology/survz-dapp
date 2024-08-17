@@ -7,7 +7,7 @@ import { timestampToDateConverter, truncate } from "../../utils/helper";
 export const RespondentCard: React.FC<RespondentCardProps> = ({ answer }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/answer_detail/` + 0);
+    navigate(`/answer_detail/` + answer.timestamp);
   };
 
   return (
@@ -22,7 +22,7 @@ export const RespondentCard: React.FC<RespondentCardProps> = ({ answer }) => {
         </div>
         <div>
           <p className="mt-2 text-sm">
-            {`Succesfully filled survey on ${0}`}
+            {`Succesfully filled survey on ${timestampToDateConverter(answer.timestamp)}`}
           </p>
         </div>
       </div>

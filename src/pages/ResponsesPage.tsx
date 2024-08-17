@@ -41,7 +41,7 @@ export const ResponsesPage = () => {
   useEffect(() => {
     if (loading || !wallet) {
       setGlobalState("loadingModalScale", "scale-100");
-    }
+    } 
     else {
       setGlobalState("loadingModalScale", "scale-0");
     }

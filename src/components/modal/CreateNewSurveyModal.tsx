@@ -3,11 +3,9 @@ import { setGlobalState, useGlobalState } from "../../utils/global";
 import React, { useState } from "react";
 import { createSurvey } from "../../services/survey";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { useNavigate } from "react-router-dom";
 
 export const CreateNewSurveyModal = () => {
   const wallet = useAnchorWallet();
-  const navigate = useNavigate();
 
   const [modalScale] = useGlobalState("createNewSurveyModalScale");
 
@@ -130,7 +128,7 @@ export const CreateNewSurveyModal = () => {
     setGlobalState("loadingModalScale", "scale-0");
     setGlobalState("successfullyCreateSurveyModal", "scale-100");
     reset();
-    navigate(`/creation`);
+    window.location.reload();
   };
 
   const errorScenario = () => {

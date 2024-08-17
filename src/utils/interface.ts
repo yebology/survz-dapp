@@ -27,6 +27,7 @@ export type Survey = {
 export type Answer = {
     user: string,
     surveyId: number,
+    timestamp: number,
     answerList: string[]
 }
 
@@ -73,4 +74,8 @@ export type RespondentCardProps = {
 export type AnswerDetailSectionProps = {
     answer: Answer,
     survey: Survey
+}
+
+export type RecommendationSectionProps = {
+    data: Survey[]
 }

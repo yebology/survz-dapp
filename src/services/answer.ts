@@ -77,6 +77,7 @@ function structuredAnswer(allAnswer: any) {
   const answerList = allAnswer.map((answer: any) => ({
     user: answer.account.user.toString(),
     surveyId: answer.account.surveyId.toNumber(),
+    timestamp: answer.account.timestamp.toNumber(),
     answerList: answer.account.answerList
   }));
   return answerList;
