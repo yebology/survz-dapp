@@ -34,13 +34,12 @@ export async function createSurvey(
   const convertedTargetParticipant = new BN(targetParticipant);
   const convertedTotalReward = new BN(totalReward * LAMPORTS_PER_SOL);
 
-  const id = new BN(new Date().getTime());
+  const id = new BN(Math.floor(new Date().getTime() / 1000));
   const surveyId = id.toArrayLike(Buffer, "le", 8);
   const [surveyPda] = web3.PublicKey.findProgramAddressSync(
     [Buffer.from("survey"), user.publicKey.toBuffer(), surveyId],
     program.programId
   );
-  console.log(surveyId);
 
   try {
     await program.methods
@@ -87,7 +86,7 @@ async function loadAllSurvey(wallet: AnchorWallet | undefined) {
     return structuredSurvey(allSurvey);
   } catch (error) {
     console.error(error);
-    return null;
+    return [];
   }
 }
 

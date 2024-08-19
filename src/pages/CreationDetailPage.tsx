@@ -21,10 +21,16 @@ export const CreationDetailPage = () => {
   useEffect(() => {
     if (id) {
       const fetchData = async () => {
-        const surveyId = parseInt(id);
-        const creationSurvey = await getCreationSurvey(wallet);
-        const surveyDetail = creationSurvey.find((survey : Survey) => survey.id === surveyId);
-        setSurveyDetail(surveyDetail);
+        try {
+          const surveyId = parseInt(id);
+          const creationSurvey = await getCreationSurvey(wallet);
+          const surveyDetail = creationSurvey.find((survey : Survey) => survey.id === surveyId);
+          setSurveyDetail(surveyDetail);
+        }
+        catch (error) {
+          console.log(error)
+        }
+       
       }
       fetchData();
     }
@@ -33,10 +39,15 @@ export const CreationDetailPage = () => {
   useEffect(() => {
     if (surveyDetail) {
       const fetchData = async () => {
-        const allAnswer = await getAnswer(wallet);
-        const answerData = allAnswer.filter((answer : Answer) => answer.surveyId === surveyDetail.id);
-        setAnswerData(answerData);
-        setLoading(false);
+        try {
+          const allAnswer = await getAnswer(wallet);
+          const answerData = allAnswer.filter((answer : Answer) => answer.surveyId === surveyDetail.id);
+          setAnswerData(answerData);
+          setLoading(false);
+        }
+        catch (error) {
+          console.log(error);
+        }
       }
       fetchData();
     }

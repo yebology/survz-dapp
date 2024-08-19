@@ -29,6 +29,9 @@ export const CreationPage = () => {
       catch (error) {
         console.log(error);
       }
+      finally {
+        setLoading(false);
+      }
     }
     fetchData()
   }, [wallet])
@@ -40,7 +43,6 @@ export const CreationPage = () => {
       );
       setFilteredSurvey(filteredData);
     }
-    setLoading(false);
   }, [query, creationData]);
 
   useEffect(() => {

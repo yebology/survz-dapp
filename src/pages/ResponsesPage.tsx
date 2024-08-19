@@ -22,8 +22,16 @@ export const ResponsesPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const responsesData = await getResponsesSurvey(wallet);
-      setResponsesData(responsesData);
+      try {
+        const responsesData = await getResponsesSurvey(wallet);
+        setResponsesData(responsesData);
+      }
+      catch (error) {
+        console.log(error)
+      }
+      finally {
+        setLoading(false);
+      }
     }
     fetchData();
   }, [wallet]);
@@ -34,7 +42,6 @@ export const ResponsesPage = () => {
         survey.title.toLocaleLowerCase().includes(query.toLowerCase())
       );
       setFilteredSurvey(filteredData);
-      setLoading(false);
     }
   }, [query, responsesData]);
 

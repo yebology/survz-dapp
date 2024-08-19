@@ -9,26 +9,26 @@ export const CreateNewSurveyModal = () => {
 
   const [modalScale] = useGlobalState("createNewSurveyModalScale");
 
-  const [title, setTitle] = useState("a");
-  const [description, setDescription] = useState("a");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [openTime, setOpenTime] = useState("");
   const [closeTime, setCloseTime] = useState("");
-  const [targetParticipant, setTargetParticipant] = useState("10");
-  const [totalReward, setTotalReward] = useState("0.1");
+  const [targetParticipant, setTargetParticipant] = useState("");
+  const [totalReward, setTotalReward] = useState("");
   const [questionList, setQuestionList] = useState<string[]>(
-    Array(5).fill("a")
+    Array(5).fill("")
   );
 
   const now = new Date().getDate();
 
   const fieldStyle = `block w-full bg-transparent border-0 text-sm py-3 px-3 text-slate-500 focus:outline-none focus:ring-0`;
 
-  const maxTitleAndImageChars = 100;
-  const maxQuestionAndDescriptionChars = 256;
+  const maxTitleChars = 60;
+  const maxQuestionAndDescriptionChars = 160;
   const minTargetParticipant = 10;
-  const minTotalReward = 0.5;
+  const minTotalReward = 1;
 
-  const titleAndImagePlaceholder = `Maximum ${maxTitleAndImageChars} characters`;
+  const titleAndImagePlaceholder = `Maximum ${maxTitleChars} characters`;
   const questionAndDescriptionPlaceholder = `Maximum ${maxQuestionAndDescriptionChars} characters`;
   const targetParticipantPlaceholder = `Minimum ${minTargetParticipant} participants`;
   const totalRewardPlaceholder = `Minimum ${minTotalReward} SOL`;
@@ -52,7 +52,7 @@ export const CreateNewSurveyModal = () => {
   ) => {
     const text = e.target.value;
 
-    if (text.length <= maxTitleAndImageChars) {
+    if (text.length <= maxTitleChars) {
       setAnswer(text);
     }
   };

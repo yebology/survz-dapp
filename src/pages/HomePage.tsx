@@ -18,10 +18,12 @@ export const HomePage = () => {
       try {
         const recommendedData = await getRecommendedSurvey(wallet);
         setRecommendedData(recommendedData);
-        setLoading(false);
-        console.log(recommendedData);
-      } catch (error) {
+      } 
+      catch (error) {
         console.log(error);
+      }
+      finally {
+        setLoading(false);
       }
     };
     fetchData();

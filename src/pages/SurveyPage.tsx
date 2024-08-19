@@ -28,6 +28,9 @@ export const SurveyPage = () => {
       } catch (error) {
         console.log(error);
       }
+      finally {
+        setLoading(false);
+      }
     };
     fetchData();
   }, [wallet]);
@@ -39,7 +42,6 @@ export const SurveyPage = () => {
       );
       setFilteredSurvey(filteredData);
     }
-    setLoading(false);
   }, [query, surveyData]);
 
   useEffect(() => {

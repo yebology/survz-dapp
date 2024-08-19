@@ -1,12 +1,8 @@
-import { setGlobalState, useGlobalState } from "../../utils/global";
+import {  useGlobalState } from "../../utils/global";
 import checked from "../../assets/checked.png";
 
 export const SuccessfullyCreateSurveyModal = () => {
   const [modalScale] = useGlobalState("successfullyCreateSurveyModal");
-
-  const onClose = () => {
-    setGlobalState("successfullyCreateSurveyModal", "scale-0");
-  };
 
   return (
     <div
@@ -27,15 +23,6 @@ export const SuccessfullyCreateSurveyModal = () => {
             Share it with your community and start collecting responses.
           </h3>
         </div>
-        <button
-          onClick={onClose}
-          style={{
-            backgroundColor: "#542cac",
-          }}
-          className="inline-block w-full px-6 py-2.5 mt-5 text-white font-medium rounded-lg hover:scale-105 duration-200 shadow-md"
-        >
-          Close Popup
-        </button>
       </div>
     </div>
   );

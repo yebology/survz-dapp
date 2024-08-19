@@ -69,7 +69,7 @@ async function loadAnswer(wallet: AnchorWallet | undefined) {
     return structuredAnswer(allAnswer);
   } catch (error) {
     console.log(error);
-    return null;
+    return [];
   }
 }
 

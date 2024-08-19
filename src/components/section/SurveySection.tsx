@@ -30,7 +30,7 @@ export const SurveySection: React.FC<SurveySectionProps> = ({ data, type }) => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {data.map((survey) => (
-            <SurveyCard survey={survey} type={type} />
+            <SurveyCard key={survey.id} survey={survey} type={type} />
           ))}
         </div>
       )}
